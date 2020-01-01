@@ -19,8 +19,8 @@ class CreateItem extends Component {
 	state = {
 		title: 'Cool Shoes',
 		description: 'I love those shoes',
-		image: 'image.jpg',
-		largeImage: 'large-image.jpg',
+		image: '',
+		largeImage: '',
 		price: 1000,
 	};
 
@@ -33,6 +33,21 @@ class CreateItem extends Component {
 					>
 						{error && <Error error={error}/>}
 						<fieldset disabled={loading} aria-busy={loading}>
+							<label htmlFor="file">
+								Image
+								<input
+									type="file"
+									id="file"
+									name="file"
+									placeholder="Upload an image"
+									required
+									onChange={this.uploadFile}
+								/>
+								{this.state.image && (
+									<img width="200" src={this.state.image} alt="Upload Preview"/>
+								)}
+							</label>
+
 							<label htmlFor="title">
 								Title
 								<input
@@ -84,16 +99,30 @@ class CreateItem extends Component {
 		this.setState({[name]: val});
 	};
 
+	uploadFile = async e => {
+		const files = e.target.files;
+		const data = new FormData();
+		data.append('file', files[0]);
+		data.append('upload_preset', 'sickfits');
+
+		const res = await fetch('https://api.cloudinary.com/v1_1/dkid75lvm/image/upload', {
+			method: 'POST',
+			body: data,
+		});
+		const file = await res.json();
+		this.setState({
+			image: file.secure_url,
+			largeImage: file.eager[0].secure_url,
+		});
+	};
+
 	handleSubmit = async (createItem, e) => {
-		// Stop the form from submitting
 		e.preventDefault();
-		// call the mutation
 		const res = await createItem({
 			variables: {
 				data: this.getStateSnapshot()
 			}
 		});
-		// change them to the single item page
 		Router.push({
 			pathname: '/item',
 			query: {id: res.data.createItem.id},
