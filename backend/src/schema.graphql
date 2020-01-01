@@ -1,7 +1,9 @@
- type Mutation {
-     stub: String
+# import * from './generated/prisma.graphql' 
+
+type Mutation {
+     createItem(data: ItemCreateInput): Item!
  }
 
  type Query {
-     stub: String
+     items: [Item!]!
  }
