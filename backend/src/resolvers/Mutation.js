@@ -5,8 +5,19 @@ const {promisify} = require('util');
 
 const mutations = {
 	async createItem(parent, args, ctx, info) {
+		const userId = ctx.request.userId;
+		if (!userId) {
+			throw 'You are not logged in';
+		}
 		return await ctx.db.mutation.createItem({
-			...args
+			data: {
+				...args.data,
+				user: {
+					connect: {
+						id: userId,
+					}
+				}
+			}
 		}, info);
 	},
 	async updateItem(parent, args, ctx, info) {
