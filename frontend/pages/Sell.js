@@ -1,8 +1,11 @@
 import CreateItem from '../components/CreateItem';
+import RequestSingin from "../components/RequestSingin";
 
 const Sell = props => (
 	<div>
-		<CreateItem />
+		<RequestSingin>
+			<CreateItem/>
+		</RequestSingin>
 	</div>
 );
 
