@@ -4,7 +4,7 @@ enum Permission {
   ITEMCREATE,
   ITEMDELETE,
   ITEMUDPATE,
-  PERMISSIONUDPATE,
+  PERMISSIONUPDATE,
 }
 
 type User {

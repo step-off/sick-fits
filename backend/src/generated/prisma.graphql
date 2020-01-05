@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/kirill-29016b/sick-fits/dev
-# timestamp: Sat Jan 04 2020 10:07:59 GMT+0500 (GMT+05:00)
+# timestamp: Sun Jan 05 2020 19:39:17 GMT+0500 (GMT+05:00)
 
 type AggregateItem {
   count: Int!
@@ -477,7 +477,7 @@ enum Permission {
   ITEMCREATE
   ITEMDELETE
   ITEMUDPATE
-  PERMISSIONUDPATE
+  PERMISSIONUPDATE
 }
 
 type Query {

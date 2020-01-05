@@ -44,7 +44,9 @@ class DeleteItem extends Component {
 
 	handleDeletion = (deleteItem) => {
 		if (confirm('Are you sure you want to delete this item?')) {
-			deleteItem();
+			deleteItem().catch(err => {
+				alert(err.message);
+			});
 		}
 	};
 }
